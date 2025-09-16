@@ -37,6 +37,8 @@
       header p {
         font-size: 1.2rem;
         color: var(--accent-color);
+        font-weight: 500;
+        margin-top: 8px;
       }
 
       /* Language button */
@@ -107,12 +109,21 @@
       .project-card h3 {
         color: var(--accent-color);
         margin-bottom: 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 1px;
       }
       .project-card a {
         display: inline-block;
         margin-top: 10px;
         color: var(--accent-color);
         text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .project-card a:hover {
+        color: #fff;
+        text-decoration: underline;
       }
 
       footer {
@@ -120,16 +131,24 @@
         padding: 20px;
         margin-top: 20px;
         background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--card-shadow);
+        font-size: 1.2rem;
+        color: var(--accent-color);
       }
 
       @media (max-width: 600px) {
         header h1 {
-          font-size: 1.8rem;
+          font-size: 1.5rem;
         }
         header p {
           font-size: 1rem;
         }
+        section {
+          padding: 12px;
+        }
       }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
     </style>
   </head>
   <body>
@@ -190,16 +209,25 @@
             </p>
             <a href="https://github.com/PaawelSz/selenium_java" target="_blank">🔗 GitHub</a>
           </div>
-        </div>
             <div class="project-card">
-            <h3 data-pl="Spring + Java" data-en="Spring + Java"></h3>
-            <p
-              data-pl="Aplikacja backendowa z wykorzystaniem Spring i Java."
-              data-en="Backend application using Spring and Java."
-            >
-            </p>
-            <a href="https://github.com/PaawelSz/patient_registration_git" target="_blank">🔗 GitHub</a>
-          </div>
+              <h3 data-pl="Spring + Java" data-en="Spring + Java"></h3>
+              <p
+                data-pl="Aplikacja backendowa z wykorzystaniem Spring i Java."
+                data-en="Backend application using Spring and Java."
+              >
+              </p>
+              <a href="https://github.com/PaawelSz/patient_registration_git" target="_blank">🔗 GitHub</a>
+            </div>
+            <div class="project-card">
+              <h3 data-pl="RestAssured + Java" data-en="RestAssured + Java"></h3>
+              <p
+                data-pl="Testy automatyzacyjne API z wykorzystaniem RestAssured i Java."
+                data-en="API automation tests using RestAssured and Java."
+              >
+              </p>
+              <a href="https://github.com/PaawelSz/api-tests" target="_blank">🔗 GitHub</a>
+            </div>
+        </div>
         </div>
       </section>
 
@@ -213,7 +241,9 @@
       </section>
     </div>
 
-    <footer>
+      <div class="neon-smoke"></div>
+    
+    <footer style="position: relative; z-index: 2;">
       <span
         data-pl="🥷"
         data-en="🥷"
