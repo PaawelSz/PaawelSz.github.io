@@ -6,10 +6,14 @@
     <title>Pawel_Szoltys</title>
     <style>
       :root {
-        --bg-color: #121212;
-        --text-color: #f0f0f0;
-        --accent-color: #4cafef;
-        --card-bg: #1e1e1e;
+        --bg-color: #0d1117;
+        --text-color: #c9d1d9;
+        --accent-color: #58a6ff;
+        --card-bg: #161b22;
+        --secondary-accent: #39d353;
+        --matrix-green: #39d353;
+        --matrix-blue: #58a6ff;
+        --hover-green: #26a641;
       }
 
       * {
@@ -28,7 +32,8 @@
         text-align: center;
         padding: 40px 20px;
         background: var(--card-bg);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 10px rgba(88, 166, 255, 0.1);
+        border: 1px solid rgba(88, 166, 255, 0.2);
         position: relative;
       }
       header h1 {
@@ -72,7 +77,8 @@
         padding: 20px;
         background: var(--card-bg);
         border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 8px rgba(88, 166, 255, 0.1);
+        border: 1px solid rgba(88, 166, 255, 0.15);
       }
 
       /* Skills */
@@ -84,10 +90,11 @@
       }
       .skills li {
         background: var(--accent-color);
-        color: white;
+        color: var(--bg-color);
         padding: 8px 15px;
         border-radius: 5px;
         font-size: 0.9rem;
+        font-weight: 600;
       }
 
       /* Projects */
@@ -100,11 +107,14 @@
         background: var(--bg-color);
         padding: 15px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease;
+        box-shadow: 0 2px 6px rgba(57, 211, 83, 0.15);
+        border: 1px solid rgba(57, 211, 83, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .project-card:hover {
         transform: scale(1.03);
+        box-shadow: 0 4px 12px rgba(57, 211, 83, 0.25);
+        border-color: rgba(57, 211, 83, 0.4);
       }
       .project-card h3 {
         color: var(--accent-color);
@@ -122,8 +132,9 @@
         transition: color 0.2s;
       }
       .project-card a:hover {
-        color: #fff;
+        color: var(--text-color);
         text-decoration: underline;
+        text-shadow: 0 0 5px rgba(57, 211, 83, 0.4);
       }
 
       footer {
@@ -148,10 +159,28 @@
           padding: 12px;
         }
       }
+
+      /* Matrix Background Effect */
+      #matrix-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: var(--bg-color);
+        opacity: 0.3;
+      }
+
+      body {
+        position: relative;
+      }
+
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
     </style>
   </head>
   <body>
+    <canvas id="matrix-canvas"></canvas>
     <header>
       <h1 data-pl="Paweł Szołtys" data-en="Paweł Szołtys"></h1>
       <p data-pl="Tester Automatyzujący" data-en="Automation Tester">
@@ -267,6 +296,51 @@
       }
       // apply saved language on load
       applyLang(currentLang);
+
+      // Matrix Effect
+      const canvas = document.getElementById('matrix-canvas');
+      const ctx = canvas.getContext('2d');
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Programming-related characters
+      const matrixChars = '01{}[]()<>=+-*/&|!@#$%^_?~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+
+      function drawMatrix() {
+        // Subtle trail effect
+        ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Matrix rain
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          // Gradient colors between green and blue
+          const hue = 120 + Math.sin(Date.now() * 0.001 + i * 0.1) * 80;
+          ctx.fillStyle = `hsl(${hue}, 70%, ${40 + Math.random() * 20}%)`;
+
+          const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+          // Reset drop to top with random chance
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      // Start animation
+      setInterval(drawMatrix, 50);
     </script>
   </body>
 </html>
